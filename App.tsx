@@ -11,8 +11,13 @@ import {
   extendTheme,
   VStack,
   Box,
+  Button,
 } from "native-base";
 import NativeBaseIcon from "./components/NativeBaseIcon";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import AppMenu from "./layout/AppMenu";
+import AppAvatar from "./layout/AppAvatar";
 
 // Define the config
 const config = {
@@ -26,44 +31,31 @@ type MyThemeType = typeof theme;
 declare module "native-base" {
   interface ICustomTheme extends MyThemeType {}
 }
+
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
     <NativeBaseProvider>
-      <Center
-        _dark={{ bg: "blueGray.900" }}
-        _light={{ bg: "blueGray.50" }}
-        px={4}
-        flex={1}
-      >
-        <VStack space={5} alignItems="center">
-          <NativeBaseIcon />
-          <Heading size="lg">Welcome to NativeBase</Heading>
-          <HStack space={2} alignItems="center">
-            <Text>Edit</Text>
-            <Box
-              _web={{
-                _text: {
-                  fontFamily: "monospace",
-                  fontSize: "sm",
-                },
-              }}
-              px={2}
-              py={1}
-              _dark={{ bg: "blueGray.800" }}
-              _light={{ bg: "blueGray.200" }}
-            >
-              App.js
-            </Box>
-            <Text>and save to reload.</Text>
-          </HStack>
-          <Link href="https://docs.nativebase.io" isExternal>
-            <Text color="primary.500" underline fontSize={"xl"}>
-              Learn NativeBase
-            </Text>
-          </Link>
-          <ToggleDarkMode />
-        </VStack>
-      </Center>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="AppMenu">
+          <Stack.Screen name="Home" component={ToggleDarkMode} />
+          <Stack.Screen
+            name="Home1"
+            component={Home1}
+            options={{ title: "Overview" }}
+          />
+          <Stack.Screen
+            name="AppMenu"
+            component={() => <Text>App menu</Text>}
+            options={{
+              headerRight: (props) => <AppAvatar />,
+              headerLeft: (props) => <AppMenu />,
+              title: "",
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </NativeBaseProvider>
   );
 }
@@ -82,6 +74,14 @@ function ToggleDarkMode() {
         }
       />
       <Text>Light</Text>
+    </HStack>
+  );
+}
+
+function Home1() {
+  return (
+    <HStack space={2} alignItems="center">
+      <Text>Home 1</Text>
     </HStack>
   );
 }
