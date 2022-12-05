@@ -27,6 +27,14 @@ const AppMenu: React.FC = () => {
           <Text> Home </Text>
         </Pressable>
       </Menu.Item>
+      <Menu.Item>
+        <Pressable
+          accessibilityLabel="Navigate to Login"
+          onPress={() => navigation?.navigate("Login")}
+        >
+          <Text> Login </Text>
+        </Pressable>
+      </Menu.Item>
       <Menu.Item>Home1</Menu.Item>
       <Menu.Item>App Menu</Menu.Item>
     </Menu>

@@ -18,6 +18,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppMenu from "./layout/AppMenu";
 import AppAvatar from "./layout/AppAvatar";
+import LoginForm from "./pages/login/LoginForm";
+import ListNotification from "./pages/notifications/ListNotification";
+import { SafeAreaView } from "react-native";
 
 // Define the config
 const config = {
@@ -38,14 +41,21 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="AppMenu">
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
           <Stack.Screen name="Home" component={ToggleDarkMode} />
+          <Stack.Screen name="Login" component={LoginForm} />
+          <Stack.Screen name="ListNotification" component={ListNotification} />
           <Stack.Screen
             name="Home1"
             component={Home1}
             options={{ title: "Overview" }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="AppMenu"
             component={() => <Text>App menu</Text>}
             options={{
@@ -53,7 +63,7 @@ export default function App() {
               headerLeft: (props) => <AppMenu />,
               title: "",
             }}
-          />
+          /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
@@ -80,8 +90,12 @@ function ToggleDarkMode() {
 
 function Home1() {
   return (
-    <HStack space={2} alignItems="center">
-      <Text>Home 1</Text>
-    </HStack>
+    <Center w="100%">
+      <Box safeArea p="2" py="8" w="90%" maxW="400">
+        <HStack space={2} alignItems="center">
+          <Text>Home 1</Text>
+        </HStack>
+      </Box>
+    </Center>
   );
 }

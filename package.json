@@ -18,6 +18,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/webpack-config": "^0.17.2",
+    "@react-native-community/cli-debugger-ui": "^9.0.0",
     "@react-navigation/native": "^6.0.16",
     "@react-navigation/native-stack": "^6.9.4",
     "expo": "^47.0.0",
