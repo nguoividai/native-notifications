@@ -21,6 +21,7 @@ import AppAvatar from "./layout/AppAvatar";
 import LoginForm from "./pages/login/LoginForm";
 import ListNotification from "./pages/notifications/ListNotification";
 import { SafeAreaView } from "react-native";
+import DrawerNavigation from "./components/drawer/DrawerNavigation";
 
 // Define the config
 const config = {
@@ -41,7 +42,7 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <Stack.Navigator
+        {/* <Stack.Navigator
           initialRouteName="Login"
           screenOptions={{
             headerShown: false,
@@ -55,16 +56,9 @@ export default function App() {
             component={Home1}
             options={{ title: "Overview" }}
           />
-          {/* <Stack.Screen
-            name="AppMenu"
-            component={() => <Text>App menu</Text>}
-            options={{
-              headerRight: (props) => <AppAvatar />,
-              headerLeft: (props) => <AppMenu />,
-              title: "",
-            }}
-          /> */}
         </Stack.Navigator>
+        <DrawerNavigation /> */}
+        <DrawerNavigation />
       </NavigationContainer>
     </NativeBaseProvider>
   );

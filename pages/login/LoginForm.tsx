@@ -64,7 +64,7 @@ const LoginForm = () => {
           <Button
             mt="2"
             colorScheme="indigo"
-            onPress={() => navigation?.navigate("ListNotification")}
+            onPress={() => navigation?.navigate("Notifications")}
           >
             Sign in
           </Button>

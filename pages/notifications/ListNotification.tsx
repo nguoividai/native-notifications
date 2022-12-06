@@ -8,6 +8,7 @@ import {
   VStack,
 } from "native-base";
 import React from "react";
+import DrawerNavigation from "../../components/drawer/DrawerNavigation";
 
 const ListNotification = () => {
   return (
@@ -23,13 +24,11 @@ const ListNotification = () => {
         safeAreaTop
         maxW="400px"
         w="100%"
+        marginTop={-7}
       >
-        <Heading p="4" pb="3" size="lg">
-          Notifications
-        </Heading>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {[...Array(50)].map((e, i) => (
-            <Box key={i} p="2.5" borderBottomWidth="1" borderColor="#d4d4d4">
+        <ScrollView showsVerticalScrollIndicator={true}>
+          {[...Array(10)].map((e, i) => (
+            <Box key={i} p="2" borderBottomWidth="1" borderColor="#d4d4d4">
               <HStack space={2}>
                 <VStack flex="1">
                   <Heading size="sm">{i + 1}. Name Notification</Heading>
