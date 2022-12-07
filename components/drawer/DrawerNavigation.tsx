@@ -10,6 +10,7 @@ import LoginForm from "../../pages/login/LoginForm";
 import AppAvatar from "../../layout/AppAvatar";
 import { Box, VStack, Text, HStack, Divider, Icon } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
+import Dashboard from "../../pages/dashboard/Dashboard";
 
 const Drawer = createDrawerNavigator();
 type CustomDrawerContentProps = DrawerContentComponentProps;
@@ -44,7 +45,7 @@ const CustomDrawerContent: React.FC<CustomDrawerContentProps> = (props) => {
               Dashboard
             </Text>
           )}
-          onPress={() => props.navigation.navigate("Notifications")}
+          onPress={() => props.navigation.navigate("Dashboard")}
         />
         <Divider my="2" />
       </VStack>
@@ -96,6 +97,7 @@ const DrawerNavigation = () => {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen name="Notifications" component={ListNotification} />
+      <Drawer.Screen name="Dashboard" component={Dashboard} />
       <Drawer.Screen
         name="Login"
         component={LoginForm}

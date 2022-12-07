@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.jaykyle.myapp"
@@ -35,6 +33,14 @@
       "eas": {
         "projectId": "b6ae68e7-b849-4657-bbca-1603318c9a4d"
       }
-    }
+    },
+    "plugin": [
+      [
+        "expo-notifications",
+        {
+          "sounds": ["./assets/sound/notification.wav"]
+        }
+      ]
+    ]
   }
 }
