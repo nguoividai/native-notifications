@@ -1,16 +1,40 @@
+import { useFocusEffect } from "@react-navigation/native";
 import {
+  Badge,
   Box,
   Center,
   Heading,
   HStack,
   ScrollView,
+  Spinner,
   Text,
   VStack,
 } from "native-base";
-import React from "react";
-import DrawerNavigation from "../../components/drawer/DrawerNavigation";
+import React, { useCallback, useEffect, useState } from "react";
+import { axiosQuery } from "../../services/axiosInceptors";
+
+type Data = {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+};
 
 const ListNotification = () => {
+  const [data, setData] = useState<Data[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      setLoading(true);
+      const { data } = await axiosQuery.get("posts");
+      setData(data);
+      setLoading(false);
+    };
+
+    getPosts();
+  }, []);
+
   return (
     <Center h="100%" w="100%" bg="white">
       <Box
@@ -26,31 +50,33 @@ const ListNotification = () => {
         w="100%"
         marginTop={-7}
       >
+        {loading ? (
+          <HStack safeArea space={2} justifyContent="center">
+            <Spinner accessibilityLabel="Loading posts" />
+            <Heading color="primary.500" fontSize="md">
+              Loading
+            </Heading>
+          </HStack>
+        ) : null}
         <ScrollView showsVerticalScrollIndicator={true}>
-          {[...Array(10)].map((e, i) => (
-            <Box key={i} p="2" borderBottomWidth="1" borderColor="#d4d4d4">
-              <HStack space={2}>
-                <VStack flex="1">
-                  <Heading size="sm">{i + 1}. Name Notification</Heading>
+          {data.map((e, i) => (
+            <Box key={e.id} p="2" borderBottomWidth="1" borderColor="#d4d4d4">
+              <HStack flex={12} space={2}>
+                <VStack flex={10}>
+                  <Heading numberOfLines={1} size="sm">
+                    {i + 1}. {e.title}
+                  </Heading>
                 </VStack>
-                <VStack flex="1" alignItems="center">
-                  <Text fontSize="xs">12/12/2022 20:12 PM</Text>
+                <VStack flex={2}>
+                  <Text numberOfLines={1} fontSize="xs" alignItems="flex-end">
+                    17:35 PM
+                  </Text>
                 </VStack>
               </HStack>
-              <HStack space={1} mt="2">
-                <Text color="#737373">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
-                </Text>
-              </HStack>
+
+              <VStack space={1} mt="2">
+                <Text color="#737373">{e.body}</Text>
+              </VStack>
             </Box>
           ))}
         </ScrollView>

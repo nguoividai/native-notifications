@@ -1,27 +1,10 @@
 import React from "react";
-import {
-  Text,
-  Link,
-  HStack,
-  Center,
-  Heading,
-  Switch,
-  useColorMode,
-  NativeBaseProvider,
-  extendTheme,
-  VStack,
-  Box,
-  Button,
-} from "native-base";
-import NativeBaseIcon from "./components/NativeBaseIcon";
+import { NativeBaseProvider, extendTheme, Button } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AppMenu from "./layout/AppMenu";
-import AppAvatar from "./layout/AppAvatar";
-import LoginForm from "./pages/login/LoginForm";
-import ListNotification from "./pages/notifications/ListNotification";
-import { SafeAreaView } from "react-native";
 import DrawerNavigation from "./components/drawer/DrawerNavigation";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ListNotification from "./pages/notifications/ListNotification";
 
 // Define the config
 const config = {
@@ -36,60 +19,12 @@ declare module "native-base" {
   interface ICustomTheme extends MyThemeType {}
 }
 
-const Stack = createNativeStackNavigator();
-
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <NavigationContainer>
-        {/* <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Home" component={ToggleDarkMode} />
-          <Stack.Screen name="Login" component={LoginForm} />
-          <Stack.Screen name="ListNotification" component={ListNotification} />
-          <Stack.Screen
-            name="Home1"
-            component={Home1}
-            options={{ title: "Overview" }}
-          />
-        </Stack.Navigator>
-        <DrawerNavigation /> */}
+    <NavigationContainer>
+      <NativeBaseProvider>
         <DrawerNavigation />
-      </NavigationContainer>
-    </NativeBaseProvider>
-  );
-}
-
-// Color Switch Component
-function ToggleDarkMode() {
-  const { colorMode, toggleColorMode } = useColorMode();
-  return (
-    <HStack space={2} alignItems="center">
-      <Text>Dark</Text>
-      <Switch
-        isChecked={colorMode === "light"}
-        onToggle={toggleColorMode}
-        aria-label={
-          colorMode === "light" ? "switch to dark mode" : "switch to light mode"
-        }
-      />
-      <Text>Light</Text>
-    </HStack>
-  );
-}
-
-function Home1() {
-  return (
-    <Center w="100%">
-      <Box safeArea p="2" py="8" w="90%" maxW="400">
-        <HStack space={2} alignItems="center">
-          <Text>Home 1</Text>
-        </HStack>
-      </Box>
-    </Center>
+      </NativeBaseProvider>
+    </NavigationContainer>
   );
 }

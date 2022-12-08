@@ -1,3 +1,4 @@
+import { NavigationContext } from "@react-navigation/native";
 import * as Device from "expo-device"; // cung cap truy cap vao he thong ve thiet bi vat ly
 import * as Notifications from "expo-notifications";
 import React, { useState, useEffect, useRef } from "react";
@@ -16,9 +17,8 @@ async function schedulePushNotification() {
     content: {
       title: "You've got mail! 📬",
       body: "Here is the notification body",
-      data: { data: "goes here" },
     },
-    trigger: { seconds: 2 },
+    trigger: { seconds: 1, channelId: "default" },
   });
 }
 
@@ -47,7 +47,6 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
   } else {
     alert("Must use physical device for Push Notifications");
   }
@@ -61,11 +60,15 @@ const PushNotifications = () => {
     useState<Notifications.Notification>();
   const notificationListener = useRef<any>();
   const responseListener = useRef<any>();
+  const navigation = React.useContext(NavigationContext);
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)
     );
+
+    //set badge count
+    Notifications.setBadgeCountAsync(10);
 
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
@@ -75,6 +78,7 @@ const PushNotifications = () => {
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
+        navigation?.navigate("Notifications");
       });
 
     return () => {
